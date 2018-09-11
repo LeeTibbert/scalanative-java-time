@@ -1,19 +1,14 @@
-# scalajs-java-time
+# scalanative-java-time
 
-[![Build Status](https://travis-ci.org/scala-js/scala-js-java-time.svg?branch=master)](https://travis-ci.org/scala-js/scala-js-java-time)
-[![Scala.js](https://www.scala-js.org/assets/badges/scalajs-0.6.17.svg)](https://www.scala-js.org/)
-[![Scala.js](https://www.scala-js.org/assets/badges/scalajs-1.0.0-M3.svg)](https://www.scala-js.org)
-[![Scala.js](https://www.scala-js.org/assets/badges/scalajs-1.0.0-M5.svg)](https://www.scala-js.org)
-
-`scalajs-java-time` is a BSD-licensed reimplementation of the `java.time` API
-of JDK8 for Scala.js. It enables this API in Scala.js projects.
+`scalanative-java-time` is a BSD-licensed reimplementation of the `java.time` API
+of JDK8 for Scala native. It enables this API in Scalanative projects.
 
 ## Usage
 
 Simply add the following line to your sbt settings:
 
 ```scala
-libraryDependencies += "org.scala-js" %%% "scalajs-java-time" % "0.2.5"
+libraryDependencies += TBD
 ```
 
 If you have a `crossProject`, the setting must be used only in the JS part:
@@ -22,12 +17,12 @@ If you have a `crossProject`, the setting must be used only in the JS part:
 lazy val myCross = crossProject
   ...
   .jsSettings(
-    libraryDependencies += "org.scala-js" %%% "scalajs-java-time" % "0.2.5"
+    libraryDependencies += TBD
   )
 ```
 
 **Requirement**: you must use a host JDK8 to *build* your project, i.e., to
-launch sbt. `scalajs-java-time` does not work on earlier JDKs.
+launch sbt. `scalanative-java-time` does not work on earlier JDKs.
 
 ## Work in Progress / linking errors
 
@@ -38,9 +33,13 @@ If you use any of those, you will get linking errors.
 Feel free to [contribute](./CONTRIBUTING.md) to extend the set of supported
 classes and methods!
 
+## Credits
+
+This library is a direct port of [scalajs-java-time](https://github.com/scala-js/scala-js-java-time) for Scala.js to Scala native, special thanks to the original creators and contributors.
+
 ## License
 
-`scalajs-java-time` is distributed under the
+`scalanative-java-time` is distributed under the
 [BSD 3-Clause license](./LICENSE.txt).
 
 ## Contributing
