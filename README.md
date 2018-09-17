@@ -1,5 +1,7 @@
 # scalanative-java-time
 
+[![Build Status](https://travis-ci.org/akka-js/scalanative-java-time.svg?branch=master)](https://travis-ci.org/akka-js/scalanative-java-time)
+
 `scalanative-java-time` is a BSD-licensed reimplementation of the `java.time` API
 of JDK8 for Scala native. It enables this API in Scalanative projects.
 
