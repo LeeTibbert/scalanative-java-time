@@ -19,7 +19,7 @@ object DurationTestUtil {
 }
 
 object DurationTestTemporalAmount extends TestSuite with TemporalAmountTest {
-  
+
   import DateTimeTestUtil._
   import Duration._
   import ChronoUnit._
@@ -88,8 +88,7 @@ object DurationTest extends TestSuite {
         assert(999999999 == dmax.getNano)
       }
     }
-    
-    
+
     'test_withSeconds - {
       assert(ZERO == dmin.withSeconds(0))
       assert(ofSeconds(2, -1) == dmax.withSeconds(1))
@@ -128,8 +127,13 @@ object DurationTest extends TestSuite {
       intercept[ArithmeticException](dmax.plus(oneNano))
       intercept[ArithmeticException](dmin.plus(oneNano.negated))
 
-      val args = Seq(Long.MinValue, -100000000000000L, 1L, 0L, 1L,
-          100000000000000L, Long.MaxValue)
+      val args = Seq(Long.MinValue,
+                     -100000000000000L,
+                     1L,
+                     0L,
+                     1L,
+                     100000000000000L,
+                     Long.MaxValue)
       for {
         d <- samples
         n <- args
@@ -313,8 +317,13 @@ object DurationTest extends TestSuite {
       intercept[ArithmeticException](dmax.minus(oneNano.negated))
       intercept[ArithmeticException](dmin.minus(oneNano))
 
-      val args = Seq(Long.MinValue, -100000000000000L, 1L, 0L, 1L,
-          100000000000000L, Long.MaxValue)
+      val args = Seq(Long.MinValue,
+                     -100000000000000L,
+                     1L,
+                     0L,
+                     1L,
+                     100000000000000L,
+                     Long.MaxValue)
       for {
         d <- samples
         n <- args
@@ -325,7 +334,8 @@ object DurationTest extends TestSuite {
         testDateTime(d.minus(n, SECONDS))(d.minusSeconds(n))
         testDateTime(d.minus(n, MINUTES))(d.minusMinutes(n))
         testDateTime(d.minus(n, HOURS))(d.minusHours(n))
-        testDateTime(d.minus(n, HALF_DAYS))(d.minus(ofHours(12).multipliedBy(n)))
+        testDateTime(d.minus(n, HALF_DAYS))(
+          d.minus(ofHours(12).multipliedBy(n)))
         testDateTime(d.minus(n, DAYS))(d.minusDays(n))
       }
       for {
@@ -678,13 +688,15 @@ object DurationTest extends TestSuite {
       assert(1L == ofNanos(1999999).toMillis)
       assert(2L == ofNanos(2000000).toMillis)
       assert(1000L == ofSeconds(1).toMillis)
-      assert(9223372036854775807L == ofSeconds(9223372036854775L, 807999999).toMillis)
+      assert(
+        9223372036854775807L == ofSeconds(9223372036854775L, 807999999).toMillis)
 
       intercept[ArithmeticException](dmin.toMillis)
       intercept[ArithmeticException](dmax.toMillis)
       // this could yield a valid long, but the reference implementation throws
       intercept[ArithmeticException](ofSeconds(-9223372036854775L, -1).toMillis)
-      intercept[ArithmeticException](ofSeconds(9223372036854775L, 808000000).toMillis)
+      intercept[ArithmeticException](
+        ofSeconds(9223372036854775L, 808000000).toMillis)
     }
 
     'test_toNanos - {
@@ -812,7 +824,8 @@ object DurationTest extends TestSuite {
     }
 
     'test_ofMillis - {
-      assert(ofSeconds(-9223372036854776L, 192000000) == ofMillis(Long.MinValue))
+      assert(
+        ofSeconds(-9223372036854776L, 192000000) == ofMillis(Long.MinValue))
       assert(ofSeconds(-1) == ofMillis(-1000))
       assert(ofSeconds(0, -1000000) == ofMillis(-1))
       assert(ZERO == ofMillis(0))
@@ -880,7 +893,8 @@ object DurationTest extends TestSuite {
       assert(ofNanos(1) == between(MIN, LocalTime.of(0, 0, 0, 1)))
 
       intercept[DateTimeException](between(MIN, LocalDate.of(2012, 2, 29)))
-      intercept[DateTimeException](between(LocalDate.of(2012, 2, 29), LocalDate.of(2012, 3, 1)))
+      intercept[DateTimeException](
+        between(LocalDate.of(2012, 2, 29), LocalDate.of(2012, 3, 1)))
     }
   }
 }

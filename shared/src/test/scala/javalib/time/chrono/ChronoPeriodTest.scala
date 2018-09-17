@@ -8,7 +8,7 @@ import utest._
 object ChronoPeriodTest extends TestSuite {
 
   val tests = Tests {
-    
+
     'test_between - {
       val ds = Seq(LocalDate.MIN, LocalDate.of(2011, 2, 28), LocalDate.MAX)
       for {

@@ -18,7 +18,8 @@ class ChronoLocalDateTest extends TestSuite {
         d1 <- ds
         d2 <- ds
       } {
-        assert(math.signum(d1.compareTo(d2)) == math.signum(ord.compare(d1, d2)))
+        assert(
+          math.signum(d1.compareTo(d2)) == math.signum(ord.compare(d1, d2)))
       }
     }
 

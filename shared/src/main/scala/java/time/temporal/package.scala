@@ -7,7 +7,7 @@ package object temporal {
       var tmp = s
       for (l <- ('A' to 'Z'))
         tmp = tmp.replaceAll(l.toString, "_" + l)
-      
+
       tmp.toUpperCase
     }
     val s2 = s1.replace("AM_PM", "AMPM")

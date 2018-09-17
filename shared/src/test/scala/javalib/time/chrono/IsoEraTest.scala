@@ -7,7 +7,9 @@ import java.time.temporal.ChronoField
 import utest._
 import org.scalajs.testsuite.javalib.time.TemporalAccessorTest
 
-object IsoEraTestTemporalAccess extends TestSuite with TemporalAccessorTest[IsoEra] {
+object IsoEraTestTemporalAccess
+    extends TestSuite
+    with TemporalAccessorTest[IsoEra] {
   import IsoEra._
 
   val samples = values.toSeq
@@ -24,7 +26,7 @@ object IsoEraTest extends TestSuite {
   val samples = values.toSeq
 
   val tests = Tests {
-  
+
     'test_getValue - {
       assert(0 == BCE.getValue)
       assert(1 == CE.getValue)

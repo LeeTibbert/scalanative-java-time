@@ -1,7 +1,12 @@
 package org.scalajs.testsuite.javalib.time
 
 import java.time.chrono.IsoChronology
-import java.time.temporal.{TemporalField, UnsupportedTemporalTypeException, ValueRange, ChronoField}
+import java.time.temporal.{
+  TemporalField,
+  UnsupportedTemporalTypeException,
+  ValueRange,
+  ChronoField
+}
 import java.time.{DateTimeException, LocalDate, Month, MonthDay}
 
 import utest._
@@ -19,23 +24,35 @@ object MonthDayTestUtils {
 }
 
 /** Created by alonsodomin on 22/12/2015. */
-object MonthDayTestTemporalAccessor extends TestSuite with TemporalAccessorTest[MonthDay] {
+object MonthDayTestTemporalAccessor
+    extends TestSuite
+    with TemporalAccessorTest[MonthDay] {
   import ChronoField._
   import MonthDayTestUtils._
 
-  val samples = Month.values().map(month => (month, month.minLength(), month.maxLength())).flatMap {
-    case (month, minDay, maxDay) =>
-      if (minDay != maxDay) Seq(MonthDay.of(month, 1), MonthDay.of(month, minDay), MonthDay.of(month, maxDay))
-      else Seq(MonthDay.of(month, 1), MonthDay.of(month, minDay))
-  }.toSeq
+  val samples = Month
+    .values()
+    .map(month => (month, month.minLength(), month.maxLength()))
+    .flatMap {
+      case (month, minDay, maxDay) =>
+        if (minDay != maxDay)
+          Seq(MonthDay.of(month, 1),
+              MonthDay.of(month, minDay),
+              MonthDay.of(month, maxDay))
+        else Seq(MonthDay.of(month, 1), MonthDay.of(month, minDay))
+    }
+    .toSeq
 
   override def isSupported(field: ChronoField): Boolean =
     field == ChronoField.MONTH_OF_YEAR || field == ChronoField.DAY_OF_MONTH
 
-  override def expectedRangeFor(accessor: MonthDay, field: TemporalField): ValueRange = {
+  override def expectedRangeFor(accessor: MonthDay,
+                                field: TemporalField): ValueRange = {
     field match {
       case DAY_OF_MONTH =>
-        ValueRange.of(1, accessor.getMonth.minLength(), accessor.getMonth.maxLength())
+        ValueRange.of(1,
+                      accessor.getMonth.minLength(),
+                      accessor.getMonth.maxLength())
 
       case _ =>
         super.expectedRangeFor(accessor, field)
@@ -49,11 +66,18 @@ object MonthDayTest extends TestSuite {
   import ChronoField._
   import MonthDayTestUtils._
 
-  val samples = Month.values().map(month => (month, month.minLength(), month.maxLength())).flatMap {
-    case (month, minDay, maxDay) =>
-      if (minDay != maxDay) Seq(MonthDay.of(month, 1), MonthDay.of(month, minDay), MonthDay.of(month, maxDay))
-      else Seq(MonthDay.of(month, 1), MonthDay.of(month, minDay))
-  }.toSeq
+  val samples = Month
+    .values()
+    .map(month => (month, month.minLength(), month.maxLength()))
+    .flatMap {
+      case (month, minDay, maxDay) =>
+        if (minDay != maxDay)
+          Seq(MonthDay.of(month, 1),
+              MonthDay.of(month, minDay),
+              MonthDay.of(month, maxDay))
+        else Seq(MonthDay.of(month, 1), MonthDay.of(month, minDay))
+    }
+    .toSeq
 
   val tests = Tests {
     'getLong - {
@@ -124,7 +148,8 @@ object MonthDayTest extends TestSuite {
       for (t <- samples) {
         intercept[DateTimeException](t.withDayOfMonth(Int.MinValue))
         intercept[DateTimeException](t.withDayOfMonth(Int.MaxValue))
-        intercept[DateTimeException](t.withDayOfMonth(t.getMonth.maxLength() + 1))
+        intercept[DateTimeException](
+          t.withDayOfMonth(t.getMonth.maxLength() + 1))
       }
     }
 
@@ -132,8 +157,8 @@ object MonthDayTest extends TestSuite {
       // Intentionally using a leap year here to be able to test the full sample
       val leapYearDate = LocalDate.of(2016, 1, 1)
       for (t <- samples) {
-        val expectedDate = LocalDate.of(leapYearDate.getYear,
-            t.getMonthValue, t.getDayOfMonth)
+        val expectedDate =
+          LocalDate.of(leapYearDate.getYear, t.getMonthValue, t.getDayOfMonth)
         assert(expectedDate == t.adjustInto(leapYearDate))
       }
 
@@ -150,7 +175,8 @@ object MonthDayTest extends TestSuite {
         assert(LocalDate.of(y, t.getMonthValue, t.getDayOfMonth) == t.atYear(y))
       }
 
-      val invalidYears = Seq(Int.MinValue, -1000000000, 1000000000, Int.MaxValue)
+      val invalidYears =
+        Seq(Int.MinValue, -1000000000, 1000000000, Int.MaxValue)
       for (t <- samples; y <- invalidYears) {
         intercept[DateTimeException](t.atYear(y))
       }

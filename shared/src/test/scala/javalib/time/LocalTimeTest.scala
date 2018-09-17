@@ -106,7 +106,8 @@ object LocalTimeTest extends TestSuite {
         for (n <- Seq(0, 30, 59))
           testDateTime(t.`with`(SECOND_OF_MINUTE, n))(t.withSecond(n))
         for (n <- Seq(0, 60, 86399))
-          testDateTime(t.`with`(SECOND_OF_DAY, n))(ofSecondOfDay(n).withNano(t.getNano))
+          testDateTime(t.`with`(SECOND_OF_DAY, n))(
+            ofSecondOfDay(n).withNano(t.getNano))
         for (n <- Seq(0, 30, 59))
           testDateTime(t.`with`(MINUTE_OF_HOUR, n))(t.withMinute(n))
         for (n <- Seq(0, 60, 1439)) {
@@ -252,8 +253,19 @@ object LocalTimeTest extends TestSuite {
     }
 
     'test_plus - {
-      val values = Seq(Long.MinValue, -1000000000L, -86400L, -3600L, -60L, -1L, 0L,
-          1L, 60L, 3600L, 86400L, 1000000000L, Long.MaxValue)
+      val values = Seq(Long.MinValue,
+                       -1000000000L,
+                       -86400L,
+                       -3600L,
+                       -60L,
+                       -1L,
+                       0L,
+                       1L,
+                       60L,
+                       3600L,
+                       86400L,
+                       1000000000L,
+                       Long.MaxValue)
 
       for {
         t <- samples
@@ -450,7 +462,7 @@ object LocalTimeTest extends TestSuite {
       assert(86399999999999L == MIN.until(MAX, NANOS))
       assert(86399999999L == MIN.until(MAX, MICROS))
       assert(86399999L == MIN.until(MAX, MILLIS))
-      assert(86399L == MIN.until(MAX, SECONDS) )
+      assert(86399L == MIN.until(MAX, SECONDS))
       assert(1439L == MIN.until(MAX, MINUTES))
       assert(23L == MIN.until(MAX, HOURS))
       assert(1L == MIN.until(MAX, HALF_DAYS))

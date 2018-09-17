@@ -52,9 +52,22 @@ object ChronoUnitTest extends TestSuite {
     }
 
     'test_values - {
-      val units = Seq(NANOS, MICROS, MILLIS, SECONDS, MINUTES, HOURS,
-          HALF_DAYS, DAYS, WEEKS, MONTHS, YEARS, DECADES, CENTURIES, MILLENNIA,
-          ERAS, FOREVER)
+      val units = Seq(NANOS,
+                      MICROS,
+                      MILLIS,
+                      SECONDS,
+                      MINUTES,
+                      HOURS,
+                      HALF_DAYS,
+                      DAYS,
+                      WEEKS,
+                      MONTHS,
+                      YEARS,
+                      DECADES,
+                      CENTURIES,
+                      MILLENNIA,
+                      ERAS,
+                      FOREVER)
       assert(units == values.toSeq)
     }
 

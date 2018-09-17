@@ -3,7 +3,8 @@ package java.time
 import java.time.temporal._
 
 final class Month private (name: String, value: Int, defaultLength: Int)
-    extends Enum[Month](name, value - 1) with TemporalAccessor
+    extends Enum[Month](name, value - 1)
+    with TemporalAccessor
     with TemporalAdjuster {
   import Month._
 
@@ -91,8 +92,18 @@ object Month {
 
   final lazy val DECEMBER = new Month("DECEMBER", 12, 31)
 
-  private lazy val months = Seq(JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE,
-      JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER)
+  private lazy val months = Seq(JANUARY,
+                                FEBRUARY,
+                                MARCH,
+                                APRIL,
+                                MAY,
+                                JUNE,
+                                JULY,
+                                AUGUST,
+                                SEPTEMBER,
+                                OCTOBER,
+                                NOVEMBER,
+                                DECEMBER)
 
   def values(): Array[Month] = months.toArray
 

@@ -7,21 +7,22 @@ import java.time.temporal._
 import scala.util.control.NonFatal
 
 final class LocalDate private (year: Int, month: Month, dayOfMonth: Int)
-    extends ChronoLocalDate with Serializable {
+    extends ChronoLocalDate
+    with Serializable {
   import Preconditions.requireDateTime
   import ChronoField._
   import ChronoUnit._
   import LocalDate._
 
   requireDateTime(year >= Year.MIN_VALUE && year <= Year.MAX_VALUE,
-      s"Invalid value for year: $year")
+                  s"Invalid value for year: $year")
 
   private val _isLeapYear = iso.isLeapYear(year)
 
   requireDateTime(dayOfMonth > 0 && dayOfMonth <= month.maxLength,
-      s"Invalid value for dayOfMonth: $dayOfMonth")
+                  s"Invalid value for dayOfMonth: $dayOfMonth")
   requireDateTime(_isLeapYear || dayOfMonth <= month.minLength,
-      s"Invalid value for dayOfMonth: $dayOfMonth")
+                  s"Invalid value for dayOfMonth: $dayOfMonth")
 
   private lazy val dayOfYear =
     month.firstDayOfYear(_isLeapYear) + dayOfMonth - 1
@@ -217,7 +218,7 @@ final class LocalDate private (year: Int, month: Month, dayOfMonth: Int)
   def plusYears(years: Long): LocalDate = {
     val year1 = year + years
     requireDateTime(year1 >= Year.MIN_VALUE && year1 <= Year.MAX_VALUE,
-        s"Invalid value for year: $year1")
+                    s"Invalid value for year: $year1")
     val leap = iso.isLeapYear(year1)
     val day1 =
       if (month == Month.FEBRUARY && dayOfMonth == 29 && !leap) 28
@@ -228,9 +229,9 @@ final class LocalDate private (year: Int, month: Month, dayOfMonth: Int)
   def plusMonths(months: Long): LocalDate = {
     val month1 = getMonthValue + Math.floorMod(months, 12).toInt
     val year1 = year + Math.floorDiv(months, 12) +
-        (if (month1 > 12) 1 else 0)
+      (if (month1 > 12) 1 else 0)
     requireDateTime(year1 >= Year.MIN_VALUE && year1 <= Year.MAX_VALUE,
-        s"Invalid value for year: $year1")
+                    s"Invalid value for year: $year1")
     val month2 = Month.of(if (month1 > 12) month1 - 12 else month1)
     val day = dayOfMonth min month2.length(iso.isLeapYear(year1))
     LocalDate.of(year1.toInt, month2, day)
@@ -287,7 +288,7 @@ final class LocalDate private (year: Int, month: Month, dayOfMonth: Int)
             dyears > 0)
           dyears - 1
         else if ((other.getMonthValue, other.getDayOfMonth) > (getMonthValue, dayOfMonth) &&
-            dyears < 0)
+                 dyears < 0)
           dyears + 1
         else
           dyears
@@ -342,7 +343,6 @@ final class LocalDate private (year: Int, month: Month, dayOfMonth: Int)
   // Not implemented
   // def atTime(time: OffsetTime): OffsetDateTime
 
-
   // TODO
   // def atStartOfDay(): LocalDateTime
 
@@ -377,10 +377,14 @@ object LocalDate {
 
   private final val iso = IsoChronology.INSTANCE
 
-  private val daysBeforeYears = Iterator.iterate(1970 -> 0) { case (year, day) =>
-    if (iso.isLeapYear(year)) (year + 1) -> (day + 366)
-    else (year + 1) -> (day + 365)
-  }.take(400).toVector
+  private val daysBeforeYears = Iterator
+    .iterate(1970 -> 0) {
+      case (year, day) =>
+        if (iso.isLeapYear(year)) (year + 1) -> (day + 366)
+        else (year + 1) -> (day + 365)
+    }
+    .take(400)
+    .toVector
 
   private final val daysInFourHundredYears = 146097
 
@@ -405,11 +409,12 @@ object LocalDate {
 
   def ofYearDay(year: Int, dayOfYear: Int): LocalDate = {
     requireDateTime(dayOfYear > 0 && dayOfYear <= 366,
-        s"Invalid value for dayOfYear: $dayOfYear")
+                    s"Invalid value for dayOfYear: $dayOfYear")
     val leap = iso.isLeapYear(year)
     requireDateTime(dayOfYear <= 365 || leap,
-        s"Invalid value for dayOfYear: $dayOfYear")
-    val month = Month.values().takeWhile(_.firstDayOfYear(leap) <= dayOfYear).last
+                    s"Invalid value for dayOfYear: $dayOfYear")
+    val month =
+      Month.values().takeWhile(_.firstDayOfYear(leap) <= dayOfYear).last
     val dayOfMonth = dayOfYear - month.firstDayOfYear(leap) + 1
     of(year, month, dayOfMonth)
   }
@@ -420,7 +425,7 @@ object LocalDate {
     val (year1, start) = daysBeforeYears.takeWhile(_._2 <= rem).last
     val year2 = year1 + quot * 400
     requireDateTime(year2 >= Year.MIN_VALUE && year2 <= Year.MAX_VALUE,
-        s"Invalid value for year: $year2")
+                    s"Invalid value for year: $year2")
     val dayOfYear = rem - start + 1
     LocalDate.ofYearDay(year2.toInt, dayOfYear.toInt)
   }
@@ -439,7 +444,8 @@ object LocalDate {
     } catch {
       case _: NumberFormatException =>
         throw new DateTimeParseException(s"$segment is not a valid $classifier",
-            segment, 0)
+                                         segment,
+                                         0)
     }
   }
 
@@ -453,7 +459,9 @@ object LocalDate {
       val day = parseSegment(daySegment, "day")
 
       requireDateTimeParse(!((sign != "+") && (year > 9999)),
-          s"year > 9999 must be preceded by [+]", text, 0)
+                           s"year > 9999 must be preceded by [+]",
+                           text,
+                           0)
 
       LocalDate.of(year.toInt, month.toInt, day.toInt)
     } catch {

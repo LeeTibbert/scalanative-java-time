@@ -20,7 +20,7 @@ object YearTestUtils {
   val nonLeapYear = Year.of(2015)
   val lastBCYear = Year.of(0)
   val firstACYear = Year.of(1)
-  val negativeYear = Year.of(-100)  
+  val negativeYear = Year.of(-100)
 }
 
 object YearTestTemporal extends TestSuite with TemporalTest[Year] {
@@ -30,7 +30,8 @@ object YearTestTemporal extends TestSuite with TemporalTest[Year] {
   import DateTimeTestUtil._
   import YearTestUtils._
 
-  val samples = Seq(min, max, leapYear, nonLeapYear, lastBCYear, firstACYear, negativeYear)
+  val samples =
+    Seq(min, max, leapYear, nonLeapYear, lastBCYear, firstACYear, negativeYear)
 
   override def isSupported(unit: ChronoUnit): Boolean =
     unit == YEARS || unit == DECADES || unit == CENTURIES || unit == MILLENNIA || unit == ERAS
@@ -38,7 +39,8 @@ object YearTestTemporal extends TestSuite with TemporalTest[Year] {
   override def isSupported(field: ChronoField): Boolean =
     field == YEAR_OF_ERA || field == YEAR || field == ERA
 
-  override def expectedRangeFor(accessor: Year, field: TemporalField): ValueRange = {
+  override def expectedRangeFor(accessor: Year,
+                                field: TemporalField): ValueRange = {
     field match {
       case YEAR_OF_ERA =>
         if (accessor.getValue() <= 0) ValueRange.of(1, MAX_VALUE + 1)
@@ -60,13 +62,16 @@ object YearTest extends TestSuite {
   import DateTimeTestUtil._
   import YearTestUtils._
 
-  def isSupported(unit: ChronoUnit): Boolean = YearTestTemporal.isSupported(unit)
+  def isSupported(unit: ChronoUnit): Boolean =
+    YearTestTemporal.isSupported(unit)
 
-  def isSupported(field: ChronoField): Boolean = YearTestTemporal.isSupported(field)
+  def isSupported(field: ChronoField): Boolean =
+    YearTestTemporal.isSupported(field)
 
   val sampleLongs = YearTestTemporal.sampleLongs
 
-  val samples = Seq(min, max, leapYear, nonLeapYear, lastBCYear, firstACYear, negativeYear)
+  val samples =
+    Seq(min, max, leapYear, nonLeapYear, lastBCYear, firstACYear, negativeYear)
 
   val monthDaySamples = Month.values().map(m => MonthDay.of(m, m.minLength()))
 
@@ -79,9 +84,10 @@ object YearTest extends TestSuite {
       } {
         if (isSupported(field)) {
           val expected = ((field: @unchecked) match {
-            case YEAR_OF_ERA => if (t.getValue < 1) 1 - t.getValue else t.getValue
-            case YEAR        => t.getValue
-            case ERA         => if (t.getValue < 1) 0 else 1
+            case YEAR_OF_ERA =>
+              if (t.getValue < 1) 1 - t.getValue else t.getValue
+            case YEAR => t.getValue
+            case ERA  => if (t.getValue < 1) 0 else 1
           }).toLong
 
           assert(expected == t.getLong(field))
@@ -188,8 +194,10 @@ object YearTest extends TestSuite {
       } {
         testDateTime(t.plus(v, YEARS))(t.plusYears(v))
         testDateTime(t.plus(v, DECADES))(t.plusYears(Math.multiplyExact(v, 10)))
-        testDateTime(t.plus(v, CENTURIES))(t.plusYears(Math.multiplyExact(v, 100)))
-        testDateTime(t.plus(v, MILLENNIA))(t.plusYears(Math.multiplyExact(v, 1000)))
+        testDateTime(t.plus(v, CENTURIES))(
+          t.plusYears(Math.multiplyExact(v, 100)))
+        testDateTime(t.plus(v, MILLENNIA))(
+          t.plusYears(Math.multiplyExact(v, 1000)))
       }
     }
 
@@ -339,8 +347,10 @@ object YearTest extends TestSuite {
       assert(LocalDate.of(leapYear.getValue, 12, 31) == leapYear.atDay(366))
       intercept[DateTimeException](leapYear.atDay(367))
 
-      assert(LocalDate.of(nonLeapYear.getValue, 3, 1) == nonLeapYear.atDay(31 + 29))
-      assert(LocalDate.of(nonLeapYear.getValue, 12, 31) == nonLeapYear.atDay(365))
+      assert(
+        LocalDate.of(nonLeapYear.getValue, 3, 1) == nonLeapYear.atDay(31 + 29))
+      assert(
+        LocalDate.of(nonLeapYear.getValue, 12, 31) == nonLeapYear.atDay(365))
       intercept[DateTimeException](nonLeapYear.atDay(366))
     }
 
@@ -350,7 +360,8 @@ object YearTest extends TestSuite {
         month <- Month.values()
       } {
         assert(YearMonth.of(t.getValue, month.getValue) == t.atMonth(month))
-        assert(YearMonth.of(t.getValue, month.getValue) == t.atMonth(month.getValue))
+        assert(
+          YearMonth.of(t.getValue, month.getValue) == t.atMonth(month.getValue))
         intercept[DateTimeException](t.atMonth(0))
         intercept[DateTimeException](t.atMonth(13))
       }
@@ -380,18 +391,21 @@ object YearTest extends TestSuite {
     'atMonthDay - {
       val leapMonthDay = MonthDay.of(2, 29)
       val leapDate = LocalDate.of(leapYear.getValue(),
-          leapMonthDay.getMonthValue, leapMonthDay.getDayOfMonth)
+                                  leapMonthDay.getMonthValue,
+                                  leapMonthDay.getDayOfMonth)
       assert(leapDate == leapYear.atMonthDay(leapMonthDay))
 
-      val nonLeapDate = LocalDate.of(nonLeapYear.getValue(),
-          leapMonthDay.getMonthValue, 28)
+      val nonLeapDate =
+        LocalDate.of(nonLeapYear.getValue(), leapMonthDay.getMonthValue, 28)
       assert(nonLeapDate == nonLeapYear.atMonthDay(leapMonthDay))
 
       for {
         t <- samples
         monthDay <- monthDaySamples
       } {
-        val expected = LocalDate.of(t.getValue, monthDay.getMonthValue, monthDay.getDayOfMonth)
+        val expected = LocalDate.of(t.getValue,
+                                    monthDay.getMonthValue,
+                                    monthDay.getDayOfMonth)
         assert(expected == t.atMonthDay(monthDay))
       }
     }

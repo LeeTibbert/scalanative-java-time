@@ -10,9 +10,10 @@ trait TemporalAccessorTest[TempAcc <: TemporalAccessor] {
 
   def isSupported(field: ChronoField): Boolean
 
-  def expectedRangeFor(accessor: TempAcc, field: TemporalField): ValueRange = field.range()
+  def expectedRangeFor(accessor: TempAcc, field: TemporalField): ValueRange =
+    field.range()
 
-  val temporalAccessorTests = Tests { 
+  val temporalAccessorTests = Tests {
     'isSupported_TemporalField - {
       for {
         accessor <- samples

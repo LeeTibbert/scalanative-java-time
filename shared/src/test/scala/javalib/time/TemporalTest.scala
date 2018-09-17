@@ -10,10 +10,30 @@ trait TemporalTest[Temp <: Temporal] extends TemporalAccessorTest[Temp] {
   def isSupported(unit: ChronoUnit): Boolean
 
   val sampleLongs = Seq(
-      Long.MinValue, Int.MinValue.toLong, -1000000000L, -86400L,
-      -3600L, -366L, -365L, -60L, -24L, -7L, -1L, 0L,
-      1L, 7L, 24L, 60L, 365L, 366L, 3600L, 86400L, 1000000000L,
-      Int.MaxValue.toLong, Long.MaxValue)
+    Long.MinValue,
+    Int.MinValue.toLong,
+    -1000000000L,
+    -86400L,
+    -3600L,
+    -366L,
+    -365L,
+    -60L,
+    -24L,
+    -7L,
+    -1L,
+    0L,
+    1L,
+    7L,
+    24L,
+    60L,
+    365L,
+    366L,
+    3600L,
+    86400L,
+    1000000000L,
+    Int.MaxValue.toLong,
+    Long.MaxValue
+  )
 
   val temporalTests = Tests {
 
@@ -80,7 +100,8 @@ trait TemporalTest[Temp <: Temporal] extends TemporalAccessorTest[Temp] {
         temporal2 <- samples
         unit <- ChronoUnit.values if !temporal1.isSupported(unit)
       } {
-        intercept[UnsupportedTemporalTypeException](temporal1.until(temporal2, unit))
+        intercept[UnsupportedTemporalTypeException](
+          temporal1.until(temporal2, unit))
       }
     }
   }

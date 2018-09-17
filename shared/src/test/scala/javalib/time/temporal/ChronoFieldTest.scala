@@ -75,14 +75,38 @@ object ChronoFieldTest extends TestSuite {
     }
 
     'test_values - {
-      val fields = Seq[AnyRef](NANO_OF_SECOND, NANO_OF_DAY, MICRO_OF_SECOND,
-          MICRO_OF_DAY, MILLI_OF_SECOND, MILLI_OF_DAY, SECOND_OF_MINUTE,
-          SECOND_OF_DAY, MINUTE_OF_HOUR, MINUTE_OF_DAY, HOUR_OF_AMPM,
-          CLOCK_HOUR_OF_AMPM, HOUR_OF_DAY, CLOCK_HOUR_OF_DAY, AMPM_OF_DAY,
-          DAY_OF_WEEK, ALIGNED_DAY_OF_WEEK_IN_MONTH, ALIGNED_DAY_OF_WEEK_IN_YEAR,
-          DAY_OF_MONTH, DAY_OF_YEAR, EPOCH_DAY, ALIGNED_WEEK_OF_MONTH,
-          ALIGNED_WEEK_OF_YEAR, MONTH_OF_YEAR, PROLEPTIC_MONTH, YEAR_OF_ERA, YEAR,
-          ERA, INSTANT_SECONDS, OFFSET_SECONDS)
+      val fields = Seq[AnyRef](
+        NANO_OF_SECOND,
+        NANO_OF_DAY,
+        MICRO_OF_SECOND,
+        MICRO_OF_DAY,
+        MILLI_OF_SECOND,
+        MILLI_OF_DAY,
+        SECOND_OF_MINUTE,
+        SECOND_OF_DAY,
+        MINUTE_OF_HOUR,
+        MINUTE_OF_DAY,
+        HOUR_OF_AMPM,
+        CLOCK_HOUR_OF_AMPM,
+        HOUR_OF_DAY,
+        CLOCK_HOUR_OF_DAY,
+        AMPM_OF_DAY,
+        DAY_OF_WEEK,
+        ALIGNED_DAY_OF_WEEK_IN_MONTH,
+        ALIGNED_DAY_OF_WEEK_IN_YEAR,
+        DAY_OF_MONTH,
+        DAY_OF_YEAR,
+        EPOCH_DAY,
+        ALIGNED_WEEK_OF_MONTH,
+        ALIGNED_WEEK_OF_YEAR,
+        MONTH_OF_YEAR,
+        PROLEPTIC_MONTH,
+        YEAR_OF_ERA,
+        YEAR,
+        ERA,
+        INSTANT_SECONDS,
+        OFFSET_SECONDS
+      )
       assert(fields == values.toSeq)
     }
 
@@ -103,8 +127,10 @@ object ChronoFieldTest extends TestSuite {
       assert(CLOCK_HOUR_OF_DAY == valueOf("CLOCK_HOUR_OF_DAY"))
       assert(AMPM_OF_DAY == valueOf("AMPM_OF_DAY"))
       assert(DAY_OF_WEEK == valueOf("DAY_OF_WEEK"))
-      assert(ALIGNED_DAY_OF_WEEK_IN_MONTH == valueOf("ALIGNED_DAY_OF_WEEK_IN_MONTH"))
-      assert(ALIGNED_DAY_OF_WEEK_IN_YEAR == valueOf("ALIGNED_DAY_OF_WEEK_IN_YEAR"))
+      assert(
+        ALIGNED_DAY_OF_WEEK_IN_MONTH == valueOf("ALIGNED_DAY_OF_WEEK_IN_MONTH"))
+      assert(
+        ALIGNED_DAY_OF_WEEK_IN_YEAR == valueOf("ALIGNED_DAY_OF_WEEK_IN_YEAR"))
       assert(DAY_OF_MONTH == valueOf("DAY_OF_MONTH"))
       assert(DAY_OF_YEAR == valueOf("DAY_OF_YEAR"))
       assert(EPOCH_DAY == valueOf("EPOCH_DAY"))

@@ -5,7 +5,10 @@ import java.time.temporal._
 
 /** Created by alonsodomin on 24/12/2015. */
 final class Year private (year: Int)
-    extends TemporalAccessor with Temporal with TemporalAdjuster with Comparable[Year]
+    extends TemporalAccessor
+    with Temporal
+    with TemporalAdjuster
+    with Comparable[Year]
     with java.io.Serializable {
 
   import Preconditions._
@@ -13,7 +16,8 @@ final class Year private (year: Int)
   import ChronoField._
   import ChronoUnit._
 
-  requireDateTime(year >= MIN_VALUE && year <= MAX_VALUE, s"Invalid year value: $year")
+  requireDateTime(year >= MIN_VALUE && year <= MAX_VALUE,
+                  s"Invalid year value: $year")
 
   def getValue(): Int = year
 
@@ -26,7 +30,7 @@ final class Year private (year: Int)
   def isSupported(unit: TemporalUnit): Boolean = unit match {
     case _: ChronoUnit =>
       unit == YEARS || unit == DECADES || unit == CENTURIES ||
-      unit == MILLENNIA || unit == ERAS
+        unit == MILLENNIA || unit == ERAS
 
     case null => false
     case _    => unit.isSupportedBy(this)
@@ -70,7 +74,7 @@ final class Year private (year: Int)
 
       case ERA =>
         requireDateTime(value == 0 || value == 1,
-            s"Invalid value for field $field: $value")
+                        s"Invalid value for field $field: $value")
         val era = get(ERA)
         if (era != value) Year.of(1 - year)
         else this
@@ -89,7 +93,7 @@ final class Year private (year: Int)
     case CENTURIES => plusYears(Math.multiplyExact(amount, 100))
     case MILLENNIA => plusYears(Math.multiplyExact(amount, 1000))
 
-    case ERAS      =>
+    case ERAS =>
       val era = get(ERA)
       `with`(ERA, Math.addExact(era, amount))
 

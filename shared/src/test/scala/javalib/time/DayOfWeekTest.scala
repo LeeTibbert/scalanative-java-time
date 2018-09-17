@@ -6,7 +6,9 @@ import java.time.temporal.ChronoField
 import utest._
 import org.scalajs.testsuite.javalib.time.TemporalAccessorTest
 
-object DayOfWeekTestTemporalAccess extends TestSuite with TemporalAccessorTest[DayOfWeek] {
+object DayOfWeekTestTemporalAccess
+    extends TestSuite
+    with TemporalAccessorTest[DayOfWeek] {
   import DayOfWeek._
 
   val samples = values.toSeq

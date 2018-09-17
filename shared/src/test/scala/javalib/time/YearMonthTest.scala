@@ -22,14 +22,21 @@ object YearMonthTestUtils {
 
 }
 
-object YearMonthTestTemporal extends TestSuite with  TemporalTest[YearMonth] {
+object YearMonthTestTemporal extends TestSuite with TemporalTest[YearMonth] {
   import DateTimeTestUtil._
   import ChronoField._
   import ChronoUnit._
   import YearMonthTestUtils._
 
-  val samples = Seq(min, max, janLastBC, decLastBC, janFirstAC, decFirstAC,
-      someYearMonth, febLeapYear, febNonLeapYear)
+  val samples = Seq(min,
+                    max,
+                    janLastBC,
+                    decLastBC,
+                    janFirstAC,
+                    decFirstAC,
+                    someYearMonth,
+                    febLeapYear,
+                    febNonLeapYear)
 
   override def isSupported(field: ChronoField): Boolean = {
     field == YEAR || field == YEAR_OF_ERA || field == MONTH_OF_YEAR ||
@@ -41,7 +48,8 @@ object YearMonthTestTemporal extends TestSuite with  TemporalTest[YearMonth] {
     unit == CENTURIES || unit == MILLENNIA || unit == ERAS
   }
 
-  override def expectedRangeFor(accessor: YearMonth, field: TemporalField): ValueRange = {
+  override def expectedRangeFor(accessor: YearMonth,
+                                field: TemporalField): ValueRange = {
     field match {
       case YEAR_OF_ERA =>
         if (accessor.getYear <= 0) ValueRange.of(1, 1000000000)
@@ -61,14 +69,21 @@ object YearMonthTest extends TestSuite {
   import ChronoField._
   import ChronoUnit._
   import YearMonthTestUtils._
-  
+
   def isSupported(unit: ChronoUnit): Boolean = {
     unit == MONTHS || unit == YEARS || unit == DECADES ||
     unit == CENTURIES || unit == MILLENNIA || unit == ERAS
   }
 
-  val samples = Seq(min, max, janLastBC, decLastBC, janFirstAC, decFirstAC,
-      someYearMonth, febLeapYear, febNonLeapYear)
+  val samples = Seq(min,
+                    max,
+                    janLastBC,
+                    decLastBC,
+                    janFirstAC,
+                    decFirstAC,
+                    someYearMonth,
+                    febLeapYear,
+                    febNonLeapYear)
 
   val sampleLongs = YearMonthTestTemporal.sampleLongs
 
@@ -152,14 +167,16 @@ object YearMonthTest extends TestSuite {
       testDateTime(min.`with`(ERA, 0))(min)
 
       testDateTime(someYearMonth.`with`(YEAR, 2000))(YearMonth.of(2000, 6))
-      testDateTime(someYearMonth.`with`(MONTH_OF_YEAR, 1))(YearMonth.of(2015, 1))
+      testDateTime(someYearMonth.`with`(MONTH_OF_YEAR, 1))(
+        YearMonth.of(2015, 1))
       testDateTime(someYearMonth.`with`(ERA, 0))(YearMonth.of(-2014, 6))
 
       for {
         ym1 <- samples
         ym2 <- samples
       } {
-        testDateTime(ym1.`with`(PROLEPTIC_MONTH, ym2.getLong(PROLEPTIC_MONTH)))(ym2)
+        testDateTime(ym1.`with`(PROLEPTIC_MONTH, ym2.getLong(PROLEPTIC_MONTH)))(
+          ym2)
       }
 
       for (ym <- samples) {
@@ -223,13 +240,17 @@ object YearMonthTest extends TestSuite {
     }
 
     'plus - {
-      for (ym <- samples;n <- sampleLongs) {
+      for (ym <- samples; n <- sampleLongs) {
         testDateTime(ym.plus(n, YEARS))(ym.plusYears(n))
         testDateTime(ym.plus(n, MONTHS))(ym.plusMonths(n))
-        testDateTime(ym.plus(n, DECADES))(ym.plusYears(Math.multiplyExact(n, 10)))
-        testDateTime(ym.plus(n, CENTURIES))(ym.plusYears(Math.multiplyExact(n, 100)))
-        testDateTime(ym.plus(n, MILLENNIA))(ym.plusYears(Math.multiplyExact(n, 1000)))
-        testDateTime(ym.plus(n, ERAS))(ym.`with`(ERA, Math.addExact(n, ym.getLong(ERA))))
+        testDateTime(ym.plus(n, DECADES))(
+          ym.plusYears(Math.multiplyExact(n, 10)))
+        testDateTime(ym.plus(n, CENTURIES))(
+          ym.plusYears(Math.multiplyExact(n, 100)))
+        testDateTime(ym.plus(n, MILLENNIA))(
+          ym.plusYears(Math.multiplyExact(n, 1000)))
+        testDateTime(ym.plus(n, ERAS))(
+          ym.`with`(ERA, Math.addExact(n, ym.getLong(ERA))))
       }
     }
 
@@ -318,7 +339,8 @@ object YearMonthTest extends TestSuite {
 
       val someDate = LocalDate.of(2015, 1, 1)
       for (ym <- samples) {
-        testDateTime(ym.adjustInto(someDate))(LocalDate.of(ym.getYear, ym.getMonthValue, 1))
+        testDateTime(ym.adjustInto(someDate))(
+          LocalDate.of(ym.getYear, ym.getMonthValue, 1))
       }
     }
 
@@ -372,7 +394,9 @@ object YearMonthTest extends TestSuite {
     'atEndOfMonth - {
       for (ym <- samples) {
         val endOfMonth = ym.lengthOfMonth()
-        assert(LocalDate.of(ym.getYear, ym.getMonthValue, endOfMonth) == ym.atEndOfMonth())
+        assert(
+          LocalDate.of(ym.getYear, ym.getMonthValue, endOfMonth) == ym
+            .atEndOfMonth())
       }
     }
 

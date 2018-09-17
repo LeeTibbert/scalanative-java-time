@@ -18,8 +18,13 @@ object PeriodTestUtils {
   final val oneMonth = of(0, 1, 0)
   final val oneDay = of(0, 0, 1)
 
-  val samples1 = Seq(ZERO, oneYear, oneYear.negated,
-      oneMonth, oneMonth.negated, oneDay, oneDay.negated)
+  val samples1 = Seq(ZERO,
+                     oneYear,
+                     oneYear.negated,
+                     oneMonth,
+                     oneMonth.negated,
+                     oneDay,
+                     oneDay.negated)
 }
 
 object PeriodTestTemporalAmount extends TestSuite with TemporalAmountTest {
@@ -42,7 +47,7 @@ object PeriodTest extends TestSuite {
 
   val samples: Seq[Period] = samples1 ++ Seq(pmin, pmin1, pmax)
 
-  val tests = Tests {    
+  val tests = Tests {
     'test_get - {
       for (p <- samples) {
         assert(p.getYears.toLong == p.get(YEARS))
@@ -67,7 +72,11 @@ object PeriodTest extends TestSuite {
     'test_isNegative - {
       for (p <- Seq(ZERO, oneYear, oneMonth, oneDay, pmax))
         assert(p.isNegative == false)
-      for (p <- Seq(oneYear.negated, oneMonth.negated, oneDay.negated, pmin, pmin1))
+      for (p <- Seq(oneYear.negated,
+                    oneMonth.negated,
+                    oneDay.negated,
+                    pmin,
+                    pmin1))
         assert(p.isNegative)
       for (p <- Seq(of(-1, 1, 1), of(1, -1, 1), of(1, 1, -1)))
         assert(p.isNegative)
@@ -319,7 +328,7 @@ object PeriodTest extends TestSuite {
 
     'test_normalized - {
       val ps = samples1 ++ Seq(of(1, -1, 0), of(-1, 1, 0)) ++
-          Seq(of(1, -25, 1), of(-1, 25, -1), of(1, 13, 1), of(-1, -13, -1))
+        Seq(of(1, -25, 1), of(-1, 25, -1), of(1, 13, 1), of(-1, -13, -1))
       for (p <- ps) {
         val p1 = p.normalized
         val years = p1.getYears
@@ -340,8 +349,10 @@ object PeriodTest extends TestSuite {
     }
 
     'test_addTo - {
-      val ds = Seq(LocalDate.MIN, LocalDate.MAX, LocalDate.of(2011, 2, 28),
-          LocalDate.of(2012, 2, 29))
+      val ds = Seq(LocalDate.MIN,
+                   LocalDate.MAX,
+                   LocalDate.of(2011, 2, 28),
+                   LocalDate.of(2012, 2, 29))
       val ts = Seq(LocalTime.MIN, LocalTime.NOON, LocalTime.MAX)
       val p1 = Period.of(1, 3, 5)
       val p2 = p1.negated
@@ -349,16 +360,30 @@ object PeriodTest extends TestSuite {
       for (t <- ds ++ ts)
         assert(t == ZERO.addTo(t))
 
-      assert(LocalDate.MAX == Period.of(1999999998, 11, 30).addTo(LocalDate.MIN))
-      assert(LocalDate.MIN == Period.of(-1999999998, -11, -30).addTo(LocalDate.MAX))
-      assert(LocalDate.of(2012, 2, 29) == Period.of(1, 0, 1).addTo(LocalDate.of(2011, 2, 28)))
-      assert(LocalDate.of(2011, 2, 27) == Period.of(-1, 0, -1).addTo(LocalDate.of(2012, 2, 29)))
-      assert(LocalDate.of(2013, 2, 28) == oneYear.addTo(LocalDate.of(2012, 2, 29)))
-      assert(LocalDate.of(2012, 2, 29) == Period.of(-1, 0, 1).addTo(LocalDate.of(2013, 2, 28)))
+      assert(
+        LocalDate.MAX == Period.of(1999999998, 11, 30).addTo(LocalDate.MIN))
+      assert(
+        LocalDate.MIN == Period.of(-1999999998, -11, -30).addTo(LocalDate.MAX))
+      assert(LocalDate
+        .of(2012, 2, 29) == Period.of(1, 0, 1).addTo(LocalDate.of(2011, 2, 28)))
+      assert(
+        LocalDate.of(2011, 2, 27) == Period
+          .of(-1, 0, -1)
+          .addTo(LocalDate.of(2012, 2, 29)))
+      assert(
+        LocalDate.of(2013, 2, 28) == oneYear.addTo(LocalDate.of(2012, 2, 29)))
+      assert(
+        LocalDate.of(2012, 2, 29) == Period
+          .of(-1, 0, 1)
+          .addTo(LocalDate.of(2013, 2, 28)))
 
       for (p <- Seq(oneYear, oneMonth, oneYear, pmin, pmax))
         intercept[DateTimeException](p.addTo(LocalDate.MAX))
-      for (p <- Seq(oneYear.negated, oneMonth.negated, oneYear.negated, pmin, pmax))
+      for (p <- Seq(oneYear.negated,
+                    oneMonth.negated,
+                    oneYear.negated,
+                    pmin,
+                    pmax))
         intercept[DateTimeException](p.addTo(LocalDate.MIN))
       for {
         p <- samples if p != ZERO
@@ -375,14 +400,35 @@ object PeriodTest extends TestSuite {
       for (t <- ds ++ ts)
         assert(t == ZERO.subtractFrom(t))
 
-      assert(LocalDate.MAX == Period.of(-1999999998, -11, -30).subtractFrom(LocalDate.MIN))
-      assert(LocalDate.MIN == Period.of(1999999998, 11, 30).subtractFrom(LocalDate.MAX))
-      assert(LocalDate.of(2012, 2, 29) == Period.of(-1, 0, -1).subtractFrom(LocalDate.of(2011, 2, 28)))
-      assert(LocalDate.of(2011, 2, 27) == Period.of(1, 0, 1).subtractFrom(LocalDate.of(2012, 2, 29)))
-      assert(LocalDate.of(2013, 2, 28) == oneYear.negated.subtractFrom(LocalDate.of(2012, 2, 29)))
-      assert(LocalDate.of(2012, 2, 29) == Period.of(1, 0, -1).subtractFrom(LocalDate.of(2013, 2, 28)))
+      assert(
+        LocalDate.MAX == Period
+          .of(-1999999998, -11, -30)
+          .subtractFrom(LocalDate.MIN))
+      assert(
+        LocalDate.MIN == Period
+          .of(1999999998, 11, 30)
+          .subtractFrom(LocalDate.MAX))
+      assert(
+        LocalDate.of(2012, 2, 29) == Period
+          .of(-1, 0, -1)
+          .subtractFrom(LocalDate.of(2011, 2, 28)))
+      assert(
+        LocalDate.of(2011, 2, 27) == Period
+          .of(1, 0, 1)
+          .subtractFrom(LocalDate.of(2012, 2, 29)))
+      assert(
+        LocalDate.of(2013, 2, 28) == oneYear.negated.subtractFrom(
+          LocalDate.of(2012, 2, 29)))
+      assert(
+        LocalDate.of(2012, 2, 29) == Period
+          .of(1, 0, -1)
+          .subtractFrom(LocalDate.of(2013, 2, 28)))
 
-      for (p <- Seq(oneYear.negated, oneMonth.negated, oneYear.negated, pmin, pmax))
+      for (p <- Seq(oneYear.negated,
+                    oneMonth.negated,
+                    oneYear.negated,
+                    pmin,
+                    pmax))
         intercept[DateTimeException](p.subtractFrom(LocalDate.MAX))
       for (p <- Seq(oneYear, oneMonth, oneYear, pmin, pmax))
         intercept[DateTimeException](p.subtractFrom(LocalDate.MIN))

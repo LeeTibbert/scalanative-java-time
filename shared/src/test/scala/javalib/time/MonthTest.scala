@@ -5,8 +5,10 @@ import java.time.temporal.ChronoField
 
 import utest._
 
-object MonthTestTemporalAccessor extends TestSuite with TemporalAccessorTest[Month] {
-import Month._
+object MonthTestTemporalAccessor
+    extends TestSuite
+    with TemporalAccessorTest[Month] {
+  import Month._
 
   val samples = values.toSeq
 
@@ -149,8 +151,18 @@ object MonthTest extends TestSuite {
     }
 
     'test_values - {
-      val months = Seq(JANUARY, FEBRUARY, MARCH, APRIL, MAY,
-          JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER)
+      val months = Seq(JANUARY,
+                       FEBRUARY,
+                       MARCH,
+                       APRIL,
+                       MAY,
+                       JUNE,
+                       JULY,
+                       AUGUST,
+                       SEPTEMBER,
+                       OCTOBER,
+                       NOVEMBER,
+                       DECEMBER)
       assert(months == values.toSeq)
     }
 
