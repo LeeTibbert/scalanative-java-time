@@ -23,18 +23,24 @@ ThisBuild / scalafmtOnCompile := true
 lazy val publishSettings = Seq(
   pomExtra := {
     <url>https://github.com/akka-js/scalanative-java-time</url>
-      <scm>
-        <connection>scm:git:github.com/akka-js/scalanative-java-time</connection>
-        <developerConnection>scm:git:git@github.com:akka-js/scalanative-java-time</developerConnection>
-        <url>github.com/akka-js/scalanative-java-time</url>
-      </scm>
-      <developers>
-        <developer>
-          <id>andreaTP</id>
-          <name>Andrea Peruffo</name>
-          <url>https://github.com/andreaTP/</url>
-        </developer>
-      </developers>
+    <licenses>
+      <license>
+        <name>BSD New</name>
+        <url>https://github.com/akka-js/scalanative-java-time/blob/master/LICENSE.txt</url>
+      </license>
+    </licenses>
+    <scm>
+      <connection>scm:git:github.com/akka-js/scalanative-java-time</connection>
+      <developerConnection>scm:git:git@github.com:akka-js/scalanative-java-time</developerConnection>
+      <url>github.com/akka-js/scalanative-java-time</url>
+    </scm>
+    <developers>
+      <developer>
+        <id>andreaTP</id>
+        <name>Andrea Peruffo</name>
+        <url>https://github.com/andreaTP/</url>
+      </developer>
+    </developers>
   },
   publishMavenStyle := true,
   pomIncludeRepository := { x =>

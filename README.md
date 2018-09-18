@@ -10,7 +10,9 @@ of JDK8 for Scala native. It enables this API in Scalanative projects.
 Simply add the following line to your sbt settings:
 
 ```scala
-libraryDependencies += "org.akka-js" %%% "scalanative-java-time" % "0.1.1"
+nativeLinkStubs := true
+
+libraryDependencies += "org.akka-js" %%% "scalanative-java-time" % "0.0.1"
 ```
 
 If you have a `crossProject`, the setting must be used only in the Native part:
@@ -20,7 +22,7 @@ lazy val myCross = crossProject
 ...
   .nativeSettings(
     nativeLinkStubs := true,
-    libraryDependencies += "org.akka-js" %%% "scalanative-java-time" % "0.1.1"
+    libraryDependencies += "org.akka-js" %%% "scalanative-java-time" % "0.0.1"
   )
 ```
 
