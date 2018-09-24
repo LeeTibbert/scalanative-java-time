@@ -742,10 +742,9 @@ object LocalDateTest extends TestSuite {
       assert("+999999999-12-31" == MAX.toString)
     }
 
-    // TODO ScalaNative -> not working ...
-    // 'test_now - {
-    //   assert(IsoEra.CE == now().getEra)
-    // }
+    'test_now - {
+      assert(IsoEra.CE == now().getEra)
+    }
 
     'test_of - {
       val years = Seq(Int.MinValue,

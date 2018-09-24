@@ -326,13 +326,19 @@ object LocalTime {
 
   val NOON = new LocalTime(12, 0, 0, 0)
 
+  def now(): LocalTime = {
+    val millis = System.currentTimeMillis
+    val seconds = millis / 1000
+
+    val currentHours = Math.floor(((seconds % 31536000) % 86400) / 3600).toInt
+    val currentMinutes =
+      Math.floor((((seconds % 31536000) % 86400) % 3600) / 60).toInt
+    val currentSeconds =
+      Math.floor((((seconds % 31536000) % 86400) % 3600) % 60).toInt
+
+    of(currentHours, currentMinutes, currentSeconds)
+  }
   // Not implemented
-  // def now(): LocalTime = {
-  //   val date = new java.util.Date()
-  //   val nano = date.getTime.toInt * 1000000
-  //   new LocalTime(date.getHours.toInt, date.getMinutes.toInt,
-  //       date.getSeconds.toInt, nano)
-  // }
   // def now(zone: ZoneId): LocalTime
 
   // Not implemented

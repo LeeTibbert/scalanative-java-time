@@ -86,9 +86,9 @@ object IsoChronologyTest extends TestSuite {
       }
     }
 
-    // 'test_dateNow - {
-    //   assert(IsoEra.CE == iso.dateNow().getEra)
-    // }
+    'test_dateNow - {
+      assert(IsoEra.CE == iso.dateNow().getEra)
+    }
 
     'test_isLeapYear - {
       for (year <- Seq(Int.MinValue,

@@ -516,10 +516,9 @@ object LocalTimeTest extends TestSuite {
       assert("01:01:01.100100100" == of(1, 1, 1, 100100100).toString)
     }
 
-    // TODO: port properly to Scala Native
-    // 'test_now - {
-    //   assert(now() != null)
-    // }
+    'test_now - {
+      assert(now() != null)
+    }
 
     'test_of - {
       testDateTime(of(0, 0))(MIN)

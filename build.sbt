@@ -7,7 +7,7 @@ lazy val root = crossProject(JVMPlatform, NativePlatform)
   .settings(
     organization := "org.akka-js",
     name := "scalanative-java-time",
-    version := "0.0.1",
+    version := "0.0.2",
     scalaVersion := "2.11.12",
     scalacOptions += "-target:jvm-1.8",
     nativeLinkStubs := true,
