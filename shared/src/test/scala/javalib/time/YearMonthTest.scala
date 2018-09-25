@@ -498,18 +498,17 @@ object YearMonthTest extends TestSuite {
       intercept[DateTimeException](YearMonth.of(max.getYear, 13))
     }
 
-    // TODO: implement it in Scala Native
-    // 'now - {
-    //   val now = LocalDate.now()
-    //   val yearMonth = YearMonth.now()
-    //   if (yearMonth.getMonthValue != now.getMonthValue) {
-    //     println("Month changed in the middle of the test!")
-    //     val newNow = LocalDate.now()
-    //     assert(newNow.getMonth, yearMonth.getMonth)
-    //     assert(newNow.getMonthValue, yearMonth.getMonthValue)
-    //     assert(newNow.getYear, yearMonth.getYear)
-    //   }
-    // }
+    'now - {
+      val now = LocalDate.now()
+      val yearMonth = YearMonth.now()
+      if (yearMonth.getMonthValue != now.getMonthValue) {
+        println("Month changed in the middle of the test!")
+        val newNow = LocalDate.now()
+        assert(newNow.getMonth == yearMonth.getMonth)
+        assert(newNow.getMonthValue == yearMonth.getMonthValue)
+        assert(newNow.getYear == yearMonth.getYear)
+      }
+    }
 
     'from - {
       for (ym <- samples) {

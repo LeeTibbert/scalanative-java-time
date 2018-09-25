@@ -392,9 +392,13 @@ object LocalDate {
   final val MAX = new LocalDate(Year.MAX_VALUE, Month.DECEMBER, 31)
 
   def now(): LocalDate = {
-    val d = new java.util.Date()
-    // of(d.getFullYear.toInt, d.getMonth.toInt + 1, d.getDate.toInt)
-    ofEpochDay(d.getTime)
+    val millis = System.currentTimeMillis
+    val seconds = millis / 1000
+
+    val year = Math.floor(seconds / 31536000).toInt
+    val day = Math.floor((seconds % 31536000) / 86400).toInt
+
+    ofYearDay(year, day)
   }
 
   // Not implemented

@@ -12,17 +12,16 @@ Simply add the following line to your sbt settings:
 ```scala
 nativeLinkStubs := true
 
-libraryDependencies += "org.akka-js" %%% "scalanative-java-time" % "0.0.1"
+libraryDependencies += "org.akka-js" %%% "scalanative-java-time" % "0.0.2"
 ```
 
 If you have a `crossProject`, the setting must be used only in the Native part:
-
 ```scala
 lazy val myCross = crossProject
 ...
   .nativeSettings(
     nativeLinkStubs := true,
-    libraryDependencies += "org.akka-js" %%% "scalanative-java-time" % "0.0.1"
+    libraryDependencies += "org.akka-js" %%% "scalanative-java-time" % "0.0.2"
   )
 ```
 

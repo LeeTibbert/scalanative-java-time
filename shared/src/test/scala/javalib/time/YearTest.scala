@@ -439,16 +439,15 @@ object YearTest extends TestSuite {
       assert(max.isBefore(max) == false)
     }
 
-    // TODO: Fix in Scala Native
-    // 'now - {
-    //   val now = LocalDate.now()
-    //   val year = Year.now()
+    'now - {
+      val now = LocalDate.now()
+      val year = Year.now()
 
-    //   if (now.getYear != year.getValue) {
-    //     assert(LocalDate.now().getYear == year.getValue)
-    //     println("Happy new year " + year + '!')
-    //   }
-    // }
+      if (now.getYear != year.getValue) {
+        assert(LocalDate.now().getYear == year.getValue)
+        println("Happy new year " + year + '!')
+      }
+    }
 
     'of - {
       assert(lastBCYear == Year.of(0))

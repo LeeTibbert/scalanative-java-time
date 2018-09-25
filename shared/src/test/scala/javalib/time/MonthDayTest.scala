@@ -215,13 +215,12 @@ object MonthDayTest extends TestSuite {
       }
     }
 
-    // TODO: fix it in ScalaNative
-    // 'now - {
-    //   val now = LocalDate.now()
-    //   val monthDay = MonthDay.now()
-    //   assert(now.getMonthValue == monthDay.getMonthValue)
-    //   assert(now.getDayOfMonth == monthDay.getDayOfMonth)
-    // }
+    'now - {
+      val now = LocalDate.now()
+      val monthDay = MonthDay.now()
+      assert(now.getMonthValue == monthDay.getMonthValue)
+      assert(now.getDayOfMonth == monthDay.getDayOfMonth)
+    }
 
     'ofMonth - {
       intercept[NullPointerException](MonthDay.of(null, 1))
@@ -242,13 +241,13 @@ object MonthDayTest extends TestSuite {
       assert(max == MonthDay.of(12, 31))
     }
 
-    // TODO: fix it in Scala Native
-    // 'from - {
-    //   assert(min == MonthDay.from(min))
-    //   assert(max == MonthDay.from(max))
+    'from - {
+      assert(min == MonthDay.from(min))
+      assert(max == MonthDay.from(max))
 
-    //   val now = LocalDate.now()
-    //   assert(MonthDay.of(now.getMonthValue, now.getDayOfMonth) == MonthDay.from(now))
-    // }
+      val now = LocalDate.now()
+      assert(
+        MonthDay.of(now.getMonthValue, now.getDayOfMonth) == MonthDay.from(now))
+    }
   }
 }

@@ -34,6 +34,8 @@ final class IsoChronology private ()
 
   def date(temporal: TemporalAccessor): LocalDate = LocalDate.from(temporal)
 
+  def dateNow(): LocalDate = LocalDate.now()
+
   // TODO
   // def localDateTime(temporal: TemporalAccessor): LocalDateTime
 
@@ -42,7 +44,6 @@ final class IsoChronology private ()
   // def zonedDateTime(instant: Instant, zone: ZoneId): ZonedDateTime
 
   // Not implemented
-  // def dateNow(): LocalDate
   // def dateNow(zone: ZoneId): ChronoLocalDate
   // def dateNow(clock: Clock): ChronoLocalDate
 
